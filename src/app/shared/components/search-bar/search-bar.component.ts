@@ -1,10 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
   OnInit,
+  Output,
   inject,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,22 +17,42 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
+  @Input() value = '';
+  @Input() placeholder = 'Find Anything...';
+
+  @Output() search = new EventEmitter<string>();
+
   private _fb = inject(FormBuilder);
+  private _unsubscribe = new Subject<void>();
 
   public form!: FormGroup;
 
   ngOnInit(): void {
-    this.initForm();
+    this.initForm(this.value);
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(500),
+        takeUntil(this._unsubscribe)
+      )
+      .subscribe(({ search }) => this.search.emit(search));
   }
 
-  initForm() {
+  ngOnDestroy(): void {
+    this._unsubscribe.next();
+    this._unsubscribe.complete();
+  }
+
+  initForm(term = '') {
     this.form = this._fb.group({
-      search: [''],
+      search: [term],
     });
   }
 
-  submit() {
-    console.log(this.form.value);
+  reset() {
+    this.form.reset({
+      search: '',
+    });
   }
 }

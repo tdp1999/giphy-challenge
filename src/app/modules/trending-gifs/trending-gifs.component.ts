@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnDestroy,
@@ -8,9 +9,10 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, combineLatest, startWith, takeUntil, tap } from 'rxjs';
 import { BreakpointObserverService } from 'src/app/shared/services/breakpoint-observer.service';
 import { GiphyApiService } from 'src/app/shared/services/giphy-api.service';
+import { SearchService } from 'src/app/shared/services/search.service';
 
 @Component({
   selector: 'app-trending-gifs',
@@ -22,26 +24,43 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
   @ViewChild('container', { static: true })
   container!: ElementRef<HTMLDivElement>;
 
+  // private _cdr = inject(ChangeDetectorRef);
   private _gifService = inject(GiphyApiService);
-  private _unsubscribe$ = new Subject<void>();
+  private _searchService = inject(SearchService);
+  private _unsubscribe = new Subject<void>();
   private _breakpointObserverService = inject(BreakpointObserverService);
 
   ngOnInit(): void {
-    // this._breakpointObserverService.gridWidth$
-    //   .pipe(takeUntil(this._unsubscribe$))
-    //   .subscribe((value) => {
-    //     if (!value) return;
+    combineLatest([
+      this._breakpointObserverService.gridWidth$,
+      this._searchService.searchTerm$.pipe(startWith('')),
+    ])
+      .pipe(
+        tap(([width, term]) => console.log(width, term)),
+        takeUntil(this._unsubscribe)
+      )
+      .subscribe(([width, term]) => {
+        if (!width || (!term && term !== '')) return;
 
-    //     this._gifService.renderTrendingGrid(this.container.nativeElement, {
-    //       columns: 3,
-    //       width: value,
-    //       gutter: 20,
-    //     });
-    //   });
+        this._gifService.removeGrid(this.container.nativeElement);
+
+        this._gifService.renderTrendingGrid(
+          this.container.nativeElement,
+          {
+            columns: 3,
+            width,
+            gutter: 20,
+          },
+          term,
+          term !== ''
+            ? (offset) => this._gifService.search(term, { offset, limit: 15 })
+            : undefined
+        );
+      });
   }
 
   ngOnDestroy(): void {
-    this._unsubscribe$.next();
-    this._unsubscribe$.complete();
+    this._unsubscribe.next();
+    this._unsubscribe.complete();
   }
 }

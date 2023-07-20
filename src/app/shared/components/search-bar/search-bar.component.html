@@ -1,18 +1,19 @@
 <form
   [formGroup]="form"
-  (submit)="submit()"
   class="relative mt-2 rounded-md shadow-sm max-w-xl m-auto"
 >
+  <div class="absolute left-4 top-4 h-6 w-6 fill-slate-400">
+    <mat-icon class="text-gray-500">search</mat-icon>
+  </div>
   <input
-    class="block w-full rounded-lg appearance-none bg-transparent border border-gray-500 py-4 pl-4 pr-12 text-base text-slate-900 placeholder:text-slate-600 focus:outline-none"
-    placeholder="Find anything..."
+    class="block w-full rounded-lg appearance-none bg-transparent border border-gray-500 py-4 px-12 text-base text-slate-900 placeholder:text-slate-600 focus:outline-none"
+    [placeholder]="placeholder"
     aria-label="Search"
     role="searchbox"
     type="text"
     value=""
     tabindex="0"
     style="caret-color: rgb(83, 94, 117)"
-    matInput
     formControlName="search"
   />
   <!-- Clear -->
@@ -23,12 +24,9 @@
     aria-label="Clear"
     tabindex="-1"
     type="reset"
-    class="absolute right-12 top-4 h-6 w-6 fill-slate-400"
-    (click)="form.reset()"
+    class="absolute right-4 top-4 h-6 w-6 fill-slate-400 text-gray-500"
+    (click)="reset()"
   >
     <mat-icon>close</mat-icon>
-  </button>
-  <button type="submit" class="absolute right-4 top-4 h-6 w-6 fill-slate-400">
-    <mat-icon>search</mat-icon>
   </button>
 </form>

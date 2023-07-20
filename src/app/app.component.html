@@ -1,10 +1,8 @@
 <app-header></app-header>
 
-<app-search-bar></app-search-bar>
-
-<div class="flex justify-center gap-4 mt-4">
-  <a routerLink="/trending-gifs" class="primary-link">To Trending Gifs</a>
-  <a routerLink="/search" class="primary-link">To Search</a>
-</div>
+<app-search-bar
+  class="mb-8"
+  (search)="searchService.search($event)"
+></app-search-bar>
 
 <router-outlet></router-outlet>
