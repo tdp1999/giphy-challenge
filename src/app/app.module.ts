@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderModule } from './layouts/header/header.module';
+import { SearchBarModule } from './shared/components/search-bar/search-bar.module';
 
-const components = [HeaderModule];
+const components = [HeaderModule, SearchBarModule];
 
 @NgModule({
   declarations: [AppComponent],

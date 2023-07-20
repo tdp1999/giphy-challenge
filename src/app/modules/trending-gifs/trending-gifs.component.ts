@@ -27,17 +27,17 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
   private _breakpointObserverService = inject(BreakpointObserverService);
 
   ngOnInit(): void {
-    this._breakpointObserverService.gridWidth$
-      .pipe(takeUntil(this._unsubscribe$))
-      .subscribe((value) => {
-        if (!value) return;
+    // this._breakpointObserverService.gridWidth$
+    //   .pipe(takeUntil(this._unsubscribe$))
+    //   .subscribe((value) => {
+    //     if (!value) return;
 
-        this._gifService.renderTrendingGrid(this.container.nativeElement, {
-          columns: 3,
-          width: value,
-          gutter: 20,
-        });
-      });
+    //     this._gifService.renderTrendingGrid(this.container.nativeElement, {
+    //       columns: 3,
+    //       width: value,
+    //       gutter: 20,
+    //     });
+    //   });
   }
 
   ngOnDestroy(): void {

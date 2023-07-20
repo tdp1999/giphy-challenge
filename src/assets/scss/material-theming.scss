@@ -1,0 +1,180 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+@function modify-background($theme, $background-color) {
+    // A theme is a map with the following structure:
+    // (
+    //   color: (..., background),
+    //   ...,
+    //   background: ...
+    // )
+    //
+    // We need to replace the background color in two palettes.
+    // Once in the background palette inside the color map.
+    // Again in the background palette itself.
+
+    // Replace the background in the color object's background palette.
+    $theme-color: map-get($theme, color);
+    $color-background-palette: map-get($theme-color, background);
+    $color-background-palette: map-merge(
+        $color-background-palette,
+        (
+            background: $background-color,
+        )
+    );
+    $color-background-palette: map-merge(
+        $color-background-palette,
+        (
+            raised-button: $background-color,
+        )
+    );
+
+    // Replace the background in the background palette.
+    $background-palette: map-get($theme, background);
+    $background-palette: map-merge(
+        $background-palette,
+        (
+            background: $background-color,
+        )
+    );
+    $background-palette: map-merge(
+        $background-palette,
+        (
+            raised-button: $background-color,
+        )
+    );
+
+    // Merge the changes into a new theme.
+    $modified-theme-color: map-merge(
+        $theme-color,
+        (
+            background: $color-background-palette,
+        )
+    );
+    $modified-theme: map-merge(
+        $theme,
+        (
+            color: $modified-theme-color,
+        )
+    );
+    $modified-theme: map-merge(
+        $modified-theme,
+        (
+            background: $background-palette,
+        )
+    );
+
+    @return $modified-theme;
+}
+
+$primary-pallete: (
+    50: #e6f2fc,
+    100: #c2def7,
+    200: #9ec9f3,
+    300: #7db4ec,
+    400: #68a4e8,
+    500: #5a95e3,
+    600: #5488d5,
+    700: #4c76c2,
+    800: #4565af,
+    900: #39488f,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+    ),
+);
+
+$accent-pallete: (
+    50: #faf0e1,
+    100: #f3d9b5,
+    200: #ebc086,
+    300: #e3a85a,
+    400: #de973f,
+    500: #da8628,
+    600: #d57c25,
+    700: #cf6e22,
+    800: #c8601d,
+    900: #bd4916,
+    A100: #ffffff,
+    A200: #fff3e6,
+    A400: #ffdfb3,
+    A700: #ffd499,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+    ),
+);
+
+$warning-palette: (
+    50: #f9e3ed,
+    100: #f1b8d2,
+    200: #ea8ab3,
+    300: #e35a95,
+    400: #de347e,
+    500: #db0067,
+    600: #ca0063,
+    700: #b4005d,
+    800: #9f0058,
+    900: #79004f,
+    contrast: (
+        50: #000000,
+        100: #000000,
+        200: #000000,
+        300: #000000,
+        400: #000000,
+        500: #ffffff,
+        600: #ffffff,
+        700: #ffffff,
+        800: #ffffff,
+        900: #ffffff,
+    ),
+);
+
+$my-app-primary: mat.define-palette($primary-pallete, 500);
+$my-app-accent: mat.define-palette($accent-pallete, A200, A100, A400);
+$my-app-warn: mat.define-palette(mat.$red-palette, 500);
+
+$light-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-app-primary,
+            accent: $my-app-accent,
+            warn: $my-app-warn,
+        ),
+    )
+);
+
+$dark-theme: mat.define-dark-theme(
+    (
+        color: (
+            primary: $my-app-primary,
+            accent: $my-app-accent,
+            warn: $my-app-warn,
+        ),
+    )
+);
+
+$modified-dark-theme: modify-background($dark-theme, #1F1F1F);
+
+@include mat.all-component-themes($light-theme);
+
+body.dark {
+    @include mat.all-component-colors($dark-theme);
+}

@@ -1,6 +1,10 @@
 <app-header></app-header>
 
-<a routerLink="/trending-gifs">To Trending Gifs</a>
-<a routerLink="/search">To Search</a>
+<app-search-bar></app-search-bar>
+
+<div class="flex justify-center gap-4 mt-4">
+  <a routerLink="/trending-gifs" class="primary-link">To Trending Gifs</a>
+  <a routerLink="/search" class="primary-link">To Search</a>
+</div>
 
 <router-outlet></router-outlet>
