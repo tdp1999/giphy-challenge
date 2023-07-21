@@ -1,7 +1,15 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { SearchService } from './shared/services/search.service';
 import { Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SearchBarComponent } from './shared/components/search-bar/search-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +17,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  @ViewChild(SearchBarComponent, { static: true })
+  searchBar!: SearchBarComponent;
+
+  @HostListener('window:keydown', ['$event']) onSearchFocus(
+    event: KeyboardEvent
+  ) {
+    if (event.key !== '/') return;
+    event.preventDefault();
+    this.searchBar.focus();
+  }
+
   public searchService = inject(SearchService);
 
   private _activatedRoute = inject(ActivatedRoute);

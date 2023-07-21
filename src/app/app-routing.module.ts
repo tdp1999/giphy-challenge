@@ -15,11 +15,6 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'search',
-    loadChildren: () =>
-      import('./modules/search/search.module').then((m) => m.SearchModule),
-  },
-  {
     path: '**',
     redirectTo: 'trending-gifs',
   },

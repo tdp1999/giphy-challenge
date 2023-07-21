@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderModule } from './layouts/header/header.module';
 import { SearchBarModule } from './shared/components/search-bar/search-bar.module';
+import { InfoButtonModule } from './shared/components/info-button/info-button.module';
 
-const components = [HeaderModule, SearchBarModule];
+const components = [HeaderModule, SearchBarModule, InfoButtonModule];
 
 @NgModule({
   declarations: [AppComponent],

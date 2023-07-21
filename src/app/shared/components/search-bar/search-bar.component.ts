@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -9,6 +10,7 @@ import {
   Output,
   SimpleChange,
   SimpleChanges,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -25,6 +27,8 @@ export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
   @Input() placeholder = 'Find Anything...';
 
   @Output() search = new EventEmitter<string>();
+
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   private _fb = inject(FormBuilder);
   private _unsubscribe = new Subject<void>();
@@ -67,5 +71,9 @@ export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
     this.form.reset({
       search: '',
     });
+  }
+
+  focus() {
+    this.searchInput.nativeElement.focus();
   }
 }

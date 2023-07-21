@@ -1,9 +1,11 @@
 <app-header></app-header>
 
 <app-search-bar
-  class="mb-8"
+  class="mb-8 sticky top-0 p-2 z-10 bg-theme-black-88"
   (search)="searchService.search($event)"
   [initValue]="initialQuery"
 ></app-search-bar>
 
 <router-outlet></router-outlet>
+
+<app-info-button></app-info-button>

@@ -31,7 +31,7 @@ export class GiphyApiService {
       fetchGifs: fetchFn,
       ...visibleOptions,
       key,
-      noResultmessage: 'No results found',
+      noResultsMessage: 'No results found',
       class: 'messaging_non_clips',
     };
 

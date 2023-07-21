@@ -1,12 +1,12 @@
 <form
   [formGroup]="form"
-  class="relative mt-2 rounded-md shadow-sm max-w-xl m-auto"
+  class="relative rounded-md shadow-sm w-gw-xs gw-sm:w-gw-sm gw-md:w-gw-md gw-lg:w-gw-lg gw-xl:w-gw-xl m-auto"
 >
   <div class="absolute left-4 top-4 h-6 w-6 fill-slate-400">
     <mat-icon class="text-gray-500">search</mat-icon>
   </div>
   <input
-    class="block w-full rounded-lg appearance-none bg-transparent border border-gray-500 py-4 px-12 text-base text-slate-900 placeholder:text-slate-600 focus:outline-none"
+    class="block w-full rounded-lg bg-theme-white-90 appearance-none border border-gray-500 py-4 px-12 text-base text-slate-900 placeholder:text-slate-600 focus:outline-none"
     [placeholder]="placeholder"
     aria-label="Search"
     role="searchbox"
@@ -15,6 +15,7 @@
     tabindex="0"
     style="caret-color: rgb(83, 94, 117)"
     formControlName="search"
+    #searchInput
   />
   <!-- Clear -->
   <button
