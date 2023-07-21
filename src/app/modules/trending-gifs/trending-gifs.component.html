@@ -1,11 +1,17 @@
 <div
   class="flex justify-start mx-auto w-gw-xs gw-sm:w-gw-sm gw-md:w-gw-md gw-lg:w-gw-lg gw-xl:w-gw-xl mb-8"
 >
-  <h1 *ngIf="searchValue; else trending">Search: {{ searchValue }}</h1>
+  <h1 *ngIf="searchValue; else trending" class="inline-flex gap-4">
+    <mat-icon class="h1 headline-icon"> search </mat-icon>
+    <span>Search: {{ searchValue }}</span>
+  </h1>
 </div>
 
 <ng-template #trending>
-  <h1>Trending GIFs</h1>
+  <h1 class="inline-flex gap-4">
+    <mat-icon class="h1 headline-icon"> trending_up </mat-icon>
+    <span>Trending GIFs</span>
+  </h1>
 </ng-template>
 
 <div #container class="flex justify-center"></div>

@@ -5,8 +5,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { GifsInfoModule } from 'src/app/shared/components/gifs-info/gifs-info.module';
 import { TrendingGifsRoutingModule } from './trending-gifs-routing.module';
 import { TrendingGifsComponent } from './trending-gifs.component';
+import { MatIconModule } from '@angular/material/icon';
 
-const components = [MatDialogModule, GifsInfoModule];
+const components = [MatDialogModule, GifsInfoModule, MatIconModule];
 
 @NgModule({
   declarations: [TrendingGifsComponent],

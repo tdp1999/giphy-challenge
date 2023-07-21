@@ -13,7 +13,7 @@ h1,
 
 h2,
 .h2 {
-  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold after:block after:w-1/3 after:h-1 after:bg-theme-primary after:mt-4 after:mx-auto;
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold;
 
   &--start {
     @apply after:mr-auto after:ml-0;
