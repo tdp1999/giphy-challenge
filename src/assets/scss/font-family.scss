@@ -1,0 +1,84 @@
+h1,
+.h1 {
+  @apply mb-2 tracking-tight sm:tracking-normal text-4xl md:text-5xl lg:text-6xl sm:leading-normal font-semibold;
+
+  &--light {
+    @apply font-light;
+  }
+
+  &--extra-bold {
+    @apply font-extrabold;
+  }
+}
+
+h2,
+.h2 {
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold after:block after:w-1/3 after:h-1 after:bg-theme-primary after:mt-4 after:mx-auto;
+
+  &--start {
+    @apply after:mr-auto after:ml-0;
+  }
+
+  &--light {
+    @apply font-light;
+  }
+}
+
+h3,
+.h3 {
+  @apply text-xl md:text-2xl lg:text-3xl font-semibold;
+}
+
+h4,
+.h4 {
+  @apply text-lg md:text-xl lg:text-2xl font-semibold;
+
+  &--light {
+    @apply font-light;
+  }
+}
+
+h5,
+.h5 {
+  @apply text-base md:text-lg lg:text-xl font-semibold;
+}
+
+p,
+.p {
+  @apply text-sm md:text-base font-normal leading-7;
+}
+
+.body {
+  @apply text-sm md:text-base font-normal;
+}
+
+.caption {
+  @apply text-xs md:text-sm font-normal uppercase;
+}
+
+.caption-value {
+  @apply text-xs md:text-sm font-normal;
+}
+
+.subtitle {
+  @apply text-sm md:text-base font-medium;
+}
+
+.list-title {
+  @apply text-sm md:text-base font-semibold;
+}
+
+.list-value {
+  @apply text-sm md:text-base font-normal;
+}
+
+ul,
+ol,
+.ul,
+.ol {
+  @apply list-disc list-inside flex flex-col gap-1 text-sm md:text-base leading-6;
+}
+
+strong {
+  @apply font-semibold;
+}

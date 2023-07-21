@@ -20,4 +20,5 @@ export interface GifDetails {
   username: string;
   userAvatar: string;
   userDescription: string;
+  userVerified: boolean;
 }

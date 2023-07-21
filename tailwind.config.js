@@ -13,6 +13,20 @@ module.exports = {
         "theme-primary": "#5A96E3",
         "theme-accent": "#FF9657",
       },
+      // gw = grid width
+      width: {
+        "gw-xs": "480px",
+        "gw-sm": "560px",
+        "gw-md": "840px",
+        "gw-lg": "1080px",
+        "gw-xl": "1280px",
+      },
+      screens: {
+        "gw-sm": "600px",
+        "gw-md": "960px",
+        "gw-lg": "1280px",
+        "gw-xl": "1920px",
+      },
     },
   },
   plugins: [],

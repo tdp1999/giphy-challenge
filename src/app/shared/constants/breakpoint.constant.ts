@@ -1,32 +1,33 @@
 import { Breakpoints } from '@angular/cdk/layout';
 import { EBreakPoint } from '../enums/breakpoint.enum';
 import { IBreakpoint } from '../interfaces/breakpoint.interface';
+import { EGridWidth } from '../enums/grid-width.enum';
 
 export const SUPPORTED_BREAKPOINTS: Record<EBreakPoint, IBreakpoint> = {
   [EBreakPoint.XSmall]: {
     name: EBreakPoint.XSmall,
     mediaQuery: Breakpoints.XSmall,
-    gridWidth: 480,
+    gridWidth: EGridWidth.XSmall,
   },
   [EBreakPoint.Small]: {
     name: EBreakPoint.Small,
     mediaQuery: Breakpoints.Small,
-    gridWidth: 560,
+    gridWidth: EGridWidth.Small,
   },
   [EBreakPoint.Medium]: {
     name: EBreakPoint.Medium,
     mediaQuery: Breakpoints.Medium,
-    gridWidth: 840,
+    gridWidth: EGridWidth.Medium,
   },
   [EBreakPoint.Large]: {
     name: EBreakPoint.Large,
     mediaQuery: Breakpoints.Large,
-    gridWidth: 1080,
+    gridWidth: EGridWidth.Large,
   },
   [EBreakPoint.XLarge]: {
     name: EBreakPoint.XLarge,
     mediaQuery: Breakpoints.XLarge,
-    gridWidth: 1280,
+    gridWidth: EGridWidth.XLarge,
   },
 };
 

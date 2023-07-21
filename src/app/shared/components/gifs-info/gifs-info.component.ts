@@ -37,5 +37,6 @@ export class GifsInfoComponent implements OnInit {
     gif.imageWidth = source.images.original.width;
     gif.username = source.user.display_name;
     gif.userAvatar = source.user.avatar_url;
+    gif.userVerified = source.user.is_verified;
   }
 }

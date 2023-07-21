@@ -1,1 +1,11 @@
+<div
+  class="flex justify-start mx-auto w-gw-xs gw-sm:w-gw-sm gw-md:w-gw-md gw-lg:w-gw-lg gw-xl:w-gw-xl"
+>
+  <h1 *ngIf="searchValue; else trending">{{ searchValue }}</h1>
+</div>
+
+<ng-template #trending>
+  <h1>Trending GIFs</h1>
+</ng-template>
+
 <div #container class="flex justify-center"></div>

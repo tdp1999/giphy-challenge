@@ -28,6 +28,8 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
   @ViewChild('container', { static: true })
   container!: ElementRef<HTMLDivElement>;
 
+  searchValue = '';
+
   // private _cdr = inject(ChangeDetectorRef);
   private _dialog = inject(MatDialog);
   private _gifService = inject(GiphyApiService);
@@ -46,6 +48,8 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
       )
       .subscribe(([width, term]) => {
         if (!width || (!term && term !== '')) return;
+
+        this.searchValue = term;
 
         this._gifService.removeGrid(this.container.nativeElement);
 
