@@ -3,12 +3,18 @@ import { Grid, renderGrid } from '@giphy/js-components';
 import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api';
 import { environment } from 'src/environments/environment';
 import { GridOptions } from '../interfaces/giphy.interface';
+import { from } from 'rxjs';
+import { GifID } from '@giphy/js-types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GiphyApiService {
   private _gf = new GiphyFetch(environment.giphyKey);
+
+  get(id: GifID) {
+    return from(this._gf.gif('' + id));
+  }
 
   search(term: string, options?: SearchOptions) {
     console.log('search', term);
@@ -29,19 +35,9 @@ export class GiphyApiService {
       class: 'messaging_non_clips',
     };
 
-    renderGrid(options, element);
+    console.log('renderTrendingGrid', options);
 
-    // renderGrid({
-    //   width: options.width,
-    //   columns: options.columns,
-    //   gutter: options.gutter,
-    //   fetchGifs: options.fetchGifs,
-    //   noResultsMessage: options.noResultmessage,
-    //   hideAttribution: options.hideAttribution,
-    //   noLink: options.noLink,
-    //   user: {},
-    //   bundle
-    // }, element)
+    renderGrid(options, element);
   }
 
   removeGrid(element: HTMLElement) {

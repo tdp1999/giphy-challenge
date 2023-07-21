@@ -9,7 +9,11 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
+import { IGif } from '@giphy/js-types';
 import { Subject, combineLatest, startWith, takeUntil, tap } from 'rxjs';
+import { GifsInfoComponent } from 'src/app/shared/components/gifs-info/gifs-info.component';
 import { BreakpointObserverService } from 'src/app/shared/services/breakpoint-observer.service';
 import { GiphyApiService } from 'src/app/shared/services/giphy-api.service';
 import { SearchService } from 'src/app/shared/services/search.service';
@@ -25,6 +29,7 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
   container!: ElementRef<HTMLDivElement>;
 
   // private _cdr = inject(ChangeDetectorRef);
+  private _dialog = inject(MatDialog);
   private _gifService = inject(GiphyApiService);
   private _searchService = inject(SearchService);
   private _unsubscribe = new Subject<void>();
@@ -50,6 +55,8 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
             columns: 3,
             width,
             gutter: 20,
+            onGifHover: this.onGifHover.bind(this),
+            onGifClick: this.onGifClick.bind(this),
           },
           term,
           term !== ''
@@ -62,5 +69,19 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribe.next();
     this._unsubscribe.complete();
+  }
+
+  onGifHover(gif: IGif, e: Event) {
+    console.log('gif', gif);
+  }
+
+  onGifClick(gif: IGif, e: Event) {
+    e.preventDefault();
+    console.log('gif clicked', gif);
+
+    this._dialog.open(GifsInfoComponent, {
+      data: { gif },
+      panelClass: 'default-dialog-class',
+    });
   }
 }
