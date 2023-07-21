@@ -17,7 +17,7 @@ export class GiphyApiService {
   }
 
   search(term: string, options?: SearchOptions) {
-    console.log('search', term);
+    // console.log('search', term);
     return this._gf.search(term, options);
   }
 
@@ -34,8 +34,6 @@ export class GiphyApiService {
       noResultmessage: 'No results found',
       class: 'messaging_non_clips',
     };
-
-    console.log('renderTrendingGrid', options);
 
     renderGrid(options, element);
   }

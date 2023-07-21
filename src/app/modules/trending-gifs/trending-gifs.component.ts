@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IGif } from '@giphy/js-types';
 import { Subject, combineLatest, startWith, takeUntil, tap } from 'rxjs';
 import { GifsInfoComponent } from 'src/app/shared/components/gifs-info/gifs-info.component';
@@ -30,20 +31,26 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
 
   searchValue = '';
 
-  // private _cdr = inject(ChangeDetectorRef);
+  private _router = inject(Router);
+  private _cdr = inject(ChangeDetectorRef);
   private _dialog = inject(MatDialog);
   private _gifService = inject(GiphyApiService);
   private _searchService = inject(SearchService);
+  private _activatedRoute = inject(ActivatedRoute);
   private _unsubscribe = new Subject<void>();
   private _breakpointObserverService = inject(BreakpointObserverService);
 
   ngOnInit(): void {
+    const { queryParams } = this._activatedRoute.snapshot;
+
     combineLatest([
       this._breakpointObserverService.gridWidth$,
-      this._searchService.searchTerm$.pipe(startWith('')),
+      this._searchService.searchTerm$.pipe(
+        startWith(queryParams['q'] || ''),
+        tap((value) => this.setSearchQuery(value))
+      ),
     ])
       .pipe(
-        tap(([width, term]) => console.log(width, term)),
         takeUntil(this._unsubscribe)
       )
       .subscribe(([width, term]) => {
@@ -67,6 +74,7 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
             ? (offset) => this._gifService.search(term, { offset, limit: 15 })
             : undefined
         );
+        this._cdr.markForCheck();
       });
   }
 
@@ -86,6 +94,19 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
     this._dialog.open(GifsInfoComponent, {
       data: { gif },
       panelClass: 'default-dialog-class',
+    });
+  }
+
+  setSearchQuery(value: string) {
+    const query: Params = !!value.trim() ? { q: value.trim() } : {};
+    this._selfNavigate(query);
+  }
+
+  private _selfNavigate(query: Params = {}) {
+    this._router.navigate([], {
+      relativeTo: this._activatedRoute,
+      queryParams: query,
+      queryParamsHandling: '',
     });
   }
 }

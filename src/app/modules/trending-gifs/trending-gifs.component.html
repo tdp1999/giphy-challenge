@@ -1,7 +1,7 @@
 <div
-  class="flex justify-start mx-auto w-gw-xs gw-sm:w-gw-sm gw-md:w-gw-md gw-lg:w-gw-lg gw-xl:w-gw-xl"
+  class="flex justify-start mx-auto w-gw-xs gw-sm:w-gw-sm gw-md:w-gw-md gw-lg:w-gw-lg gw-xl:w-gw-xl mb-8"
 >
-  <h1 *ngIf="searchValue; else trending">{{ searchValue }}</h1>
+  <h1 *ngIf="searchValue; else trending">Search: {{ searchValue }}</h1>
 </div>
 
 <ng-template #trending>

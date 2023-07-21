@@ -3,9 +3,12 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChange,
+  SimpleChanges,
   inject,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -17,8 +20,8 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
   styleUrls: ['./search-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
-  @Input() value = '';
+export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
+  @Input() initValue = '';
   @Input() placeholder = 'Find Anything...';
 
   @Output() search = new EventEmitter<string>();
@@ -28,8 +31,18 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   public form!: FormGroup;
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      !changes['initValue'] ||
+      changes['initValue'].currentValue === changes['initValue'].previousValue
+    )
+      return;
+    if (!this.form) return;
+    this.form.patchValue({ search: changes['initValue'].currentValue });
+  }
+
   ngOnInit(): void {
-    this.initForm(this.value);
+    this.initForm(this.initValue);
     this.form.valueChanges
       .pipe(
         distinctUntilChanged(),

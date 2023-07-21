@@ -3,6 +3,7 @@
 <app-search-bar
   class="mb-8"
   (search)="searchService.search($event)"
+  [initValue]="initialQuery"
 ></app-search-bar>
 
 <router-outlet></router-outlet>
