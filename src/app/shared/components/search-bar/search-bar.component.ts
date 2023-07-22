@@ -8,7 +8,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  SimpleChange,
   SimpleChanges,
   ViewChild,
   inject,
@@ -30,10 +29,10 @@ export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
 
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
+  public form!: FormGroup;
+
   private _fb = inject(FormBuilder);
   private _unsubscribe = new Subject<void>();
-
-  public form!: FormGroup;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (
@@ -46,7 +45,7 @@ export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initForm(this.initValue);
+    this._initForm(this.initValue);
     this.form.valueChanges
       .pipe(
         distinctUntilChanged(),
@@ -61,12 +60,6 @@ export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
     this._unsubscribe.complete();
   }
 
-  initForm(term = '') {
-    this.form = this._fb.group({
-      search: [term],
-    });
-  }
-
   reset() {
     this.form.reset({
       search: '',
@@ -75,5 +68,11 @@ export class SearchBarComponent implements OnChanges, OnInit, OnDestroy {
 
   focus() {
     this.searchInput.nativeElement.focus();
+  }
+
+  private _initForm(term = '') {
+    this.form = this._fb.group({
+      search: [term],
+    });
   }
 }

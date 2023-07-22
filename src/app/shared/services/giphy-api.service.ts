@@ -1,16 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { Grid, renderGrid } from '@giphy/js-components';
+import { renderGrid } from '@giphy/js-components';
 import {
   GifsResult,
   GiphyFetch,
   RelatedOptions,
   SearchOptions,
 } from '@giphy/js-fetch-api';
+import { GifID } from '@giphy/js-types';
+import { from } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { GridOptions } from '../interfaces/giphy.interface';
-import { from } from 'rxjs';
-import { GifID } from '@giphy/js-types';
-import { HttpClient } from '@angular/common/http';
 import { GIF_LIMIT, RELATED_GIF_LIMIT } from '../tokens/gif.token';
 
 @Injectable({
@@ -19,7 +18,6 @@ import { GIF_LIMIT, RELATED_GIF_LIMIT } from '../tokens/gif.token';
 export class GiphyApiService {
   private _giphyKey = environment.giphyKey;
   private _gf = new GiphyFetch(this._giphyKey);
-  private _httpClient = inject(HttpClient);
 
   private _limit = inject(GIF_LIMIT);
   private _relatedLimit = inject(RELATED_GIF_LIMIT);

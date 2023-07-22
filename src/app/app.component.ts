@@ -28,12 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.searchBar.focus();
   }
 
+  public initialQuery = '';
   public searchService = inject(SearchService);
 
   private _activatedRoute = inject(ActivatedRoute);
   private _unsubscribe = new Subject<void>();
-
-  initialQuery = '';
 
   ngOnInit(): void {
     this._activatedRoute.queryParams

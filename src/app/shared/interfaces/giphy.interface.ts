@@ -26,6 +26,5 @@ export interface GifDetails {
   userAvatar: string;
   userDescription: string;
   userVerified: boolean;
-  userProfileUrl: string;
   viewCount?: number;
 }

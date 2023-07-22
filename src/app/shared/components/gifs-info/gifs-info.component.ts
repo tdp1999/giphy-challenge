@@ -16,6 +16,14 @@ import { Observable } from 'rxjs';
 import { GifsResult } from '@giphy/js-fetch-api';
 import { MatTooltip } from '@angular/material/tooltip';
 
+interface GifsInfoData {
+  gif: IGif;
+  additionalData?: Partial<GifDetails>;
+  getRelatedGifs?: (
+    id: string | number | undefined
+  ) => Observable<GifsResult | null>;
+}
+
 @Component({
   selector: 'app-gifs-info',
   templateUrl: './gifs-info.component.html',
@@ -26,46 +34,24 @@ export class GifsInfoComponent implements OnInit {
   @ViewChild('mainGifRef') image?: ElementRef<HTMLImageElement>;
   @ViewChild(MatTooltip, { read: MatTooltip }) tooltip?: MatTooltip;
 
-  private _data: {
-    gif: IGif;
-    additionalData?: Partial<GifDetails>;
-    getRelatedGifs?: (
-      id: string | number | undefined
-    ) => Observable<GifsResult | null>;
-  } = inject(MAT_DIALOG_DATA);
-  private _utilService = inject(UtilService);
-  private _cdr = inject(ChangeDetectorRef);
-
   public copied = false;
-  public relatedGifs: IGif[] = [];
   public dateFormat = DATE_TIME_FORMAT.date;
   public dateTimeFormat = DATE_TIME_FORMAT.datetime;
-  public gif: GifDetails | null = null;
   public bottomSheetRef = inject(MatDialogRef<GifsInfoComponent>);
+  public relatedGifs: IGif[] = [];
+  public gif: GifDetails | null = null;
+
+  private _cdr = inject(ChangeDetectorRef);
+  private _utilService = inject(UtilService);
+  private _data: GifsInfoData = inject(MAT_DIALOG_DATA);
 
   ngOnInit(): void {
-    this.gif = {} as GifDetails;
-    this._mappingGifDetails(this.gif, this._data.gif);
-    this.gif = { ...this.gif, ...this._data.additionalData };
-    if (this._data.getRelatedGifs) {
-      this._data.getRelatedGifs(this.gif.id).subscribe((result) => {
-        this.relatedGifs = result?.data || [];
-        this._cdr.markForCheck();
-      });
-    }
+    this._loadGif(this._data.gif);
   }
 
   onSelectGif(gif: IGif): void {
     this.image?.nativeElement.classList.add('loading');
-    this.gif = {} as GifDetails;
-    this._mappingGifDetails(this.gif, gif);
-
-    if (this._data.getRelatedGifs) {
-      this._data.getRelatedGifs(gif.id).subscribe((result) => {
-        this.relatedGifs = result?.data || [];
-        this._cdr.markForCheck();
-      });
-    }
+    this._loadGif(gif);
   }
 
   onLoadFinished(image: HTMLImageElement): void {
@@ -81,7 +67,20 @@ export class GifsInfoComponent implements OnInit {
     }, 1000);
   }
 
-  private _mappingGifDetails(gif: GifDetails, source: IGif): void {
+  private _loadGif(source: IGif) {
+    this.gif = this._mappingGifDetails(source);
+    this.gif = { ...this.gif, ...this._data.additionalData };
+    if (!this._data.getRelatedGifs) return;
+
+    this._data.getRelatedGifs(this.gif.id).subscribe((result) => {
+      this.relatedGifs = result?.data || [];
+      this._cdr.markForCheck();
+    });
+  }
+
+  private _mappingGifDetails(source: IGif): GifDetails {
+    const gif = {} as GifDetails;
+
     gif.id = source.id;
     gif.title = source.title;
     gif.rating = source.rating;
@@ -100,5 +99,7 @@ export class GifsInfoComponent implements OnInit {
     gif.username = source.user?.display_name;
     gif.userAvatar = source.user?.avatar_url;
     gif.userVerified = source.user?.is_verified;
+
+    return gif;
   }
 }
