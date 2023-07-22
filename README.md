@@ -1,27 +1,53 @@
-# GiphyChallenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+# Giphy Challange
 
-## Development server
+A Replicated Giphy's Trending Page. Built with Angular 14.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+https://pi-exchange-giphy-challenge.netlify.app/
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Features
 
-## Running unit tests
+- Live Trending Gifs
+- Search Gifs 
+- View Gif fullsize + detail
+- Partialy responsive (device width from 600px -> 1920px)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Just run to command below:
 
-## Further help
+```bash
+  npm install
+```
+```bash
+  npm start
+```
+    
+## FAQ
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### How long have I been coding for this project?
+
+For 04 days. From 19/07/2023 to 22/07/2023.
+
+#### If I had more time, what improvements could I make to this project?
+
+- Build a complete replica of Giphy, which includes gifs, stickers, and videos. However, I'm afraid this is quite challenging due to the limited number and quality of APIs/SDKs that Giphy provides for users, and it's not regularly updated.
+- Use Nx to build this project.
+- Dig deeper into image optimization for the Gifs section. Slow-loading images pose a significant issue for a website like Giphy.
+- Add Light / Dark mode.
+
+
+#### Library used
+- Angular v14
+- Angular CDK / Material
+- TailwindCSS
+
+
+## Contributing
+
+If you have any question, contribute or request, please don't hesitate to contact me at `tdp99.business@gmail.com`.
