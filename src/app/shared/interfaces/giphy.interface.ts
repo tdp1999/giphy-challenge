@@ -11,14 +11,20 @@ export interface GridOptions {
   onGifClick?: (gif: IGif, e: Event) => void;
 }
 export interface GifDetails {
-  id: string;
+  id: string | number;
   title: string;
   rating: string;
   image: string;
-  imageHeight: string;
-  imageWidth: string;
+  imageHeight: number;
+  imageWidth: number;
+  importDate: string | null;
+  trendingDate: string | null;
+  url: string;
+  shortenedUrl: string;
+  hasUser: boolean;
   username: string;
   userAvatar: string;
   userDescription: string;
   userVerified: boolean;
+  viewCount?: number;
 }

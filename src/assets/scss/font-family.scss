@@ -1,6 +1,6 @@
 h1,
 .h1 {
-  @apply mb-2 tracking-tight sm:tracking-normal text-4xl md:text-5xl lg:text-6xl sm:leading-normal font-semibold;
+  @apply mb-2 tracking-tight sm:tracking-normal text-3xl md:text-4xl sm:leading-normal font-semibold;
 
   &--light {
     @apply font-light;
@@ -13,7 +13,7 @@ h1,
 
 h2,
 .h2 {
-  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold;
+  @apply text-2xl md:text-3xl font-extrabold  theme--text;
 
   &--start {
     @apply after:mr-auto after:ml-0;
@@ -26,12 +26,12 @@ h2,
 
 h3,
 .h3 {
-  @apply text-xl md:text-2xl lg:text-3xl font-semibold;
+  @apply text-xl md:text-2xl lg:text-3xl font-semibold theme--text;
 }
 
 h4,
 .h4 {
-  @apply text-lg md:text-xl lg:text-2xl font-semibold;
+  @apply text-lg md:text-xl font-semibold theme--text;
 
   &--light {
     @apply font-light;
@@ -40,43 +40,43 @@ h4,
 
 h5,
 .h5 {
-  @apply text-base md:text-lg lg:text-xl font-semibold;
+  @apply text-base md:text-lg lg:text-xl font-semibold theme--text;
 }
 
 p,
 .p {
-  @apply text-sm md:text-base font-normal leading-7;
+  @apply text-sm md:text-base font-normal leading-7 theme--text;
 }
 
 .body {
-  @apply text-sm md:text-base font-normal;
+  @apply text-sm md:text-base font-normal theme--text;
 }
 
 .caption {
-  @apply text-xs md:text-sm font-normal uppercase;
+  @apply text-xs md:text-sm font-normal uppercase theme--text;
 }
 
 .caption-value {
-  @apply text-xs md:text-sm font-normal;
+  @apply text-xs md:text-sm font-normal theme--text;
 }
 
 .subtitle {
-  @apply text-sm md:text-base font-medium;
+  @apply text-sm md:text-base font-medium theme--text;
 }
 
 .list-title {
-  @apply text-sm md:text-base font-semibold;
+  @apply text-sm md:text-base font-semibold theme--text;
 }
 
 .list-value {
-  @apply text-sm md:text-base font-normal;
+  @apply text-sm md:text-base font-normal theme--text;
 }
 
 ul,
 ol,
 .ul,
 .ol {
-  @apply list-disc list-inside flex flex-col gap-1 text-sm md:text-base leading-6;
+  @apply list-disc list-inside flex flex-col gap-1 text-sm md:text-base leading-6 theme--text;
 }
 
 strong {

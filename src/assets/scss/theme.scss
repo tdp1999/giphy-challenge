@@ -1,0 +1,25 @@
+.theme {
+  &--bg {
+    @apply bg-theme-white-90 dark:bg-theme-black-88;
+  }
+
+  &--bg-secondary {
+    @apply bg-theme-white-80 dark:bg-theme-black-80;
+  }
+
+  &--bg-reverse {
+    @apply bg-theme-black-88 dark:bg-theme-white-90;
+  }
+
+  &--bg-reverse-secondary {
+    @apply bg-theme-black-80 dark:bg-theme-white-90;
+  }
+
+  &--text {
+    @apply text-theme-black-88 dark:text-theme-white-90;
+  }
+
+  &--text-reverse {
+    @apply text-theme-white-90 dark:text-theme-black-88;
+  }
+}

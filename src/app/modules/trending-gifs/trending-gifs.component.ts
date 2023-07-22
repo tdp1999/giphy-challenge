@@ -13,8 +13,10 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IGif } from '@giphy/js-types';
-import { Subject, combineLatest, startWith, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, of, startWith, takeUntil, tap } from 'rxjs';
 import { GifsInfoComponent } from 'src/app/shared/components/gifs-info/gifs-info.component';
+import { GIF_LIMIT } from 'src/app/shared/components/tokens/gif.token';
+import { GifDetails } from 'src/app/shared/interfaces/giphy.interface';
 import { BreakpointObserverService } from 'src/app/shared/services/breakpoint-observer.service';
 import { GiphyApiService } from 'src/app/shared/services/giphy-api.service';
 import { SearchService } from 'src/app/shared/services/search.service';
@@ -31,6 +33,7 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
 
   searchValue = '';
 
+  private _limit = inject(GIF_LIMIT);
   private _router = inject(Router);
   private _cdr = inject(ChangeDetectorRef);
   private _dialog = inject(MatDialog);
@@ -47,12 +50,10 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
       this._breakpointObserverService.gridWidth$,
       this._searchService.searchTerm$.pipe(
         startWith(queryParams['q'] || ''),
-        tap((value) => this.setSearchQuery(value))
+        tap((value) => this._setSearchQuery(value))
       ),
     ])
-      .pipe(
-        takeUntil(this._unsubscribe)
-      )
+      .pipe(takeUntil(this._unsubscribe))
       .subscribe(([width, term]) => {
         if (!width || (!term && term !== '')) return;
 
@@ -71,7 +72,8 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
           },
           term,
           term !== ''
-            ? (offset) => this._gifService.search(term, { offset, limit: 15 })
+            ? (offset) =>
+                this._gifService.search(term, { offset, limit: this._limit })
             : undefined
         );
         this._cdr.markForCheck();
@@ -89,17 +91,24 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
 
   onGifClick(gif: IGif, e: Event) {
     e.preventDefault();
-    console.log('gif clicked', gif);
-
-    this._dialog.open(GifsInfoComponent, {
-      data: { gif },
-      panelClass: 'default-dialog-class',
-    });
+    this._openDialog(gif);
   }
 
-  setSearchQuery(value: string) {
+  private _setSearchQuery(value: string) {
     const query: Params = !!value.trim() ? { q: value.trim() } : {};
     this._selfNavigate(query);
+  }
+
+  private _openDialog(gif: IGif, additionalData?: Partial<GifDetails>) {
+    this._dialog.open(GifsInfoComponent, {
+      data: {
+        gif,
+        additionalData,
+        getRelatedGifs: (id: string | number | undefined) =>
+          id ? this._gifService.related('' + id) : of(null),
+      },
+      panelClass: 'default-dialog-class',
+    });
   }
 
   private _selfNavigate(query: Params = {}) {
