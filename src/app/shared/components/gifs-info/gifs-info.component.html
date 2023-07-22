@@ -52,6 +52,7 @@
     <div class="">
       <a
         matTooltip="Go to Giphy"
+        matTooltipPosition="right"
         class="inline-flex items-center text-theme-primary"
         [href]="gif?.url"
         target="_blank"
@@ -64,14 +65,18 @@
       </a>
 
       <button
-        matTooltip="Copy Link"
+        matTooltip="Copy Link To Clipboard"
         type="button"
         class="flex items-center text-theme-primary"
+        [cdkCopyToClipboard]="gif?.shortenedUrl ?? ''"
+        (cdkCopyToClipboardCopied)="onCopyLink()"
       >
         <mat-icon class="flex items-center justify-center !text-[20px]"
           >content_copy</mat-icon
         >
         <span>Share</span>
+
+        <span *ngIf="copied" class="ml-2 text-sm text-green-400">Copied!</span>
       </button>
     </div>
 

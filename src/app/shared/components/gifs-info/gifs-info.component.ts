@@ -14,6 +14,7 @@ import { DATE_TIME_FORMAT } from '../../constants/datetime.constant';
 import { UtilService } from '../../services/util.service';
 import { Observable } from 'rxjs';
 import { GifsResult } from '@giphy/js-fetch-api';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-gifs-info',
@@ -23,6 +24,7 @@ import { GifsResult } from '@giphy/js-fetch-api';
 })
 export class GifsInfoComponent implements OnInit {
   @ViewChild('mainGifRef') image?: ElementRef<HTMLImageElement>;
+  @ViewChild(MatTooltip, { read: MatTooltip }) tooltip?: MatTooltip;
 
   private _data: {
     gif: IGif;
@@ -34,6 +36,7 @@ export class GifsInfoComponent implements OnInit {
   private _utilService = inject(UtilService);
   private _cdr = inject(ChangeDetectorRef);
 
+  public copied = false;
   public relatedGifs: IGif[] = [];
   public dateFormat = DATE_TIME_FORMAT.date;
   public dateTimeFormat = DATE_TIME_FORMAT.datetime;
@@ -69,6 +72,14 @@ export class GifsInfoComponent implements OnInit {
   onLoadFinished(image: HTMLImageElement): void {
     image.classList.remove('loading');
     this._cdr.markForCheck();
+  }
+
+  onCopyLink() {
+    this.copied = true;
+    setTimeout(() => {
+      this.copied = false;
+      this._cdr.markForCheck();
+    }, 1000);
   }
 
   private _mappingGifDetails(gif: GifDetails, source: IGif): void {

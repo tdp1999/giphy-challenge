@@ -12,7 +12,7 @@ export class UtilService {
   decideImageUrl(image: IGif['images']): string {
     let url = image.original.url;
 
-    if (!image.original.size || +image.original?.size > 2000000)
+    if (!image.original.size || +image.original?.size > 1000000)
       url = image.original.webp;
 
     return url;
