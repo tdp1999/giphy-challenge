@@ -53,7 +53,6 @@ export class GifsInfoComponent implements OnInit {
         this._cdr.markForCheck();
       });
     }
-    console.log(this.gif);
   }
 
   onSelectGif(gif: IGif): void {
@@ -83,7 +82,6 @@ export class GifsInfoComponent implements OnInit {
   }
 
   private _mappingGifDetails(gif: GifDetails, source: IGif): void {
-    console.log('source', source);
     gif.id = source.id;
     gif.title = source.title;
     gif.rating = source.rating;

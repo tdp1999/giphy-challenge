@@ -1,8 +1,12 @@
-.default-dialog-class {
+.default-dialog {
   @apply w-11/12 lg:w-10/12 max-h-[80vh];
   position: relative !important;
 
   .mat-dialog-container {
     @apply p-4 lg:p-6;
   }
+}
+
+.info-dialog {
+  @apply lg:w-[684px]  w-10/12;
 }

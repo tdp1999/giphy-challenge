@@ -107,7 +107,7 @@ export class TrendingGifsComponent implements OnInit, OnDestroy {
         getRelatedGifs: (id: string | number | undefined) =>
           id ? this._gifService.related('' + id) : of(null),
       },
-      panelClass: 'default-dialog-class',
+      panelClass: 'default-dialog',
     });
   }
 
