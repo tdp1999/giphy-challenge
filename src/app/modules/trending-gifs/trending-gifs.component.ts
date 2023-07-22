@@ -15,7 +15,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IGif } from '@giphy/js-types';
 import { Subject, combineLatest, of, startWith, takeUntil, tap } from 'rxjs';
 import { GifsInfoComponent } from 'src/app/shared/components/gifs-info/gifs-info.component';
-import { GIF_LIMIT } from 'src/app/shared/components/tokens/gif.token';
+import { GIF_LIMIT } from 'src/app/shared/tokens/gif.token';
 import { GifDetails } from 'src/app/shared/interfaces/giphy.interface';
 import { BreakpointObserverService } from 'src/app/shared/services/breakpoint-observer.service';
 import { GiphyApiService } from 'src/app/shared/services/giphy-api.service';

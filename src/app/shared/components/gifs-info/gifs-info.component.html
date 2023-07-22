@@ -29,9 +29,9 @@
           </span>
         </h4>
 
-        <span *ngIf="gif?.importDate" class="caption-value">
+        <time *ngIf="gif?.importDate" class="caption-value">
           {{ gif?.importDate | date : dateFormat }}
-        </span>
+        </time>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
 
       <p *ngIf="gif?.trendingDate" class="font-bold">
         <span>Trending Since: </span>
-        <span>{{ gif?.trendingDate | date : dateTimeFormat }}</span>
+        <time>{{ gif?.trendingDate | date : dateTimeFormat }}</time>
       </p>
     </div>
 

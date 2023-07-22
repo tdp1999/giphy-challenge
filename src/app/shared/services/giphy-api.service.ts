@@ -11,7 +11,7 @@ import { GridOptions } from '../interfaces/giphy.interface';
 import { from } from 'rxjs';
 import { GifID } from '@giphy/js-types';
 import { HttpClient } from '@angular/common/http';
-import { GIF_LIMIT, RELATED_GIF_LIMIT } from '../components/tokens/gif.token';
+import { GIF_LIMIT, RELATED_GIF_LIMIT } from '../tokens/gif.token';
 
 @Injectable({
   providedIn: 'root',

@@ -8,10 +8,7 @@ import { HeaderModule } from './layouts/header/header.module';
 import { SearchBarModule } from './shared/components/search-bar/search-bar.module';
 import { InfoButtonModule } from './shared/components/info-button/info-button.module';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  GIF_LIMIT,
-  RELATED_GIF_LIMIT,
-} from './shared/components/tokens/gif.token';
+import { GIF_LIMIT, RELATED_GIF_LIMIT } from './shared/tokens/gif.token';
 
 const components = [
   HeaderModule,
